@@ -1,0 +1,18 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+body {
+  .search-city {
+    .input-field {
+      height: 3rem;
+    }
+
+    .input-field.s3 {
+      display: flex;
+      align-items: flex-end;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
