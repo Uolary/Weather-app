@@ -6,12 +6,23 @@ body {
       height: 3rem;
     }
 
-    .input-field.s3 {
+    .input-field.m3 {
       display: flex;
       align-items: flex-end;
 
       button {
         width: 100%;
+      }
+    }
+  }
+
+  .weather-info {
+    .row {
+      width: 100%;
+      display: flex;
+
+      >div {
+        margin: 0 auto !important;
       }
     }
   }
