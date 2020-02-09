@@ -13,6 +13,7 @@ class App extends React.Component {
         pressure: null,
         humidity: null,
         windSpeed: null,
+        icon: '',
         description: ''
       },
       hasErrored: false,
@@ -52,6 +53,7 @@ class App extends React.Component {
             pressure: weatherJSON.main.pressure,
             humidity: weatherJSON.main.humidity,
             windSpeed: weatherJSON.wind.speed,
+            icon: weatherJSON.weather[0].icon,
             description: weatherJSON.weather[0].description
           }
         })

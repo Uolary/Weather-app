@@ -3,7 +3,10 @@ import React from 'react';
 class WeatherInfo extends React.Component {
   render() {
     let progressInfo = (
-      <span className="card-title center-align">Поиск погоды в вашем городе</span>
+      <div>
+        <i className="material-icons large">cloud_done</i>
+        <span className="card-title center-align">Поиск погоды в вашем городе</span>
+      </div>
     )
 
     if (this.props.error) {
@@ -19,15 +22,20 @@ class WeatherInfo extends React.Component {
       )
     } else if (this.props.info.nameCity) {
       progressInfo = (
-        <div>
-          <span className="card-title center-align city-name">{this.props.info.nameCity}</span>
-          <span className="weather-description">{this.props.info.description}</span>
-          <ul className="full-info">
-            <li>Температура: {this.props.info.temp} °C</li>
-            <li>Давление: {this.props.info.pressure} гПа</li>
-            <li>Влажность: {this.props.info.humidity} %</li>
-            <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
-          </ul>
+        <div className="weather-cards">
+          <div>
+            <span className="card-title center-align city-name">{this.props.info.nameCity}</span>
+            <span className="weather-description">{this.props.info.description}</span>
+            <ul className="full-info">
+              <li>Температура: {this.props.info.temp} °C</li>
+              <li>Давление: {this.props.info.pressure} гПа</li>
+              <li>Влажность: {this.props.info.humidity} %</li>
+              <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
+            </ul>
+          </div>
+          <div>
+            <img src={`http://openweathermap.org/img/wn/${this.props.info.icon}@2x.png`} alt="icon" />
+          </div>
         </div>
       )
     }
