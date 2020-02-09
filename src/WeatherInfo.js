@@ -10,6 +10,8 @@ class WeatherInfo extends React.Component {
       progressInfo = ( <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> )
     }
 
+    console.log('wi', this.props.info)
+
     return (
       <div className="weather-info">
         <div className="container">
@@ -18,7 +20,17 @@ class WeatherInfo extends React.Component {
               <div className="card teal lighten-1">
                 <div className="card-content white-text">
                   {progressInfo}
-                  <span className="card-title center-align">{this.props.info}</span>
+                  
+                  <span className="card-title center-align">{this.props.info.nameCity}</span>
+                  <div>
+                    <span>{this.props.info.description}</span>
+                    <ul>
+                      <li>Температура: {this.props.info.temp} °C</li>
+                      <li>Давление: {this.props.info.pressure} гПа</li>
+                      <li>Влажность: {this.props.info.humidity} %</li>
+                      <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
