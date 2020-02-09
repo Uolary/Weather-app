@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './Search';
 import WeatherInfo from './WeatherInfo';
-import apiKey from './apiKey';
+import { apiKey } from './apiKey';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,14 +18,20 @@ class App extends React.Component {
       hasErrored: false,
       isLoading: false
     }
+    this.getWeatherData = this.getWeatherData.bind(this)
   }
 
-  fetchData(url) {
+  getWeatherData(event) {
+    event.preventDefault()
+
+    const city = event.target.elements.city.value
+
     this.setState({
+      hasErrored: false,
       isLoading: true
     })
 
-    fetch(url)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText)
@@ -56,20 +62,16 @@ class App extends React.Component {
       }))
   }
 
-  componentDidMount() {
-    this.fetchData('http://api.openweathermap.org/data/2.5/weather?q=минск&appid=5f4229348d69ab02419993565887eb53&units=metric&lang=ru')
-  }
-
   render() {
     return (
       <div className="App">
-        <Search />
+        <Search getWeatherData={this.getWeatherData} />
         
-        {
-          this.state.hasErrored ? <WeatherInfo info={'Ошибка загрузки'} /> :
-          this.state.isLoading ? <WeatherInfo info={'Загрузка...'} /> : 
-          this.state.weatherInfo ? <WeatherInfo info={this.state.weatherInfo} /> : null
-        }
+        <WeatherInfo 
+          info={this.state.weatherInfo} 
+          error={this.state.hasErrored} 
+          loading={this.state.isLoading}  
+        />
       </div>
     );
   }

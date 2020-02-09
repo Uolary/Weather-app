@@ -86,6 +86,23 @@ body {
           }
         }
       }
+
+      .city-name {
+        font-size: 2em;
+        font-weight: 500;
+      }
+
+      .full-info {
+        font-size: 1.2em;
+      }
+
+      .weather-description {
+        font-size: 1.3em;
+      }
+
+      .weather-description::first-letter {
+        text-transform: uppercase !important;  
+      }  
     }
   }
 }

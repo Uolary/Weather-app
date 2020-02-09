@@ -6,9 +6,9 @@ class Search extends React.Component {
       <div className="search-city">
         <div className="container">
           <div className="row">
-            <form className="col s12">
+            <form className="col s12" onSubmit={this.props.getWeatherData}>
               <div className="input-field col s12 m9">
-                <input placeholder="Город" type="text" className="validate" />
+                <input placeholder="Город" type="text" className="validate" name="city" />
               </div>
               <div className="input-field col s12 m3">
                 <button className="waves-effect waves-light btn"><i className="material-icons left ">cloud</i>Поиск</button>

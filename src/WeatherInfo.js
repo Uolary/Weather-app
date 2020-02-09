@@ -2,16 +2,36 @@ import React from 'react';
 
 class WeatherInfo extends React.Component {
   render() {
-    let progressInfo = null
+    let progressInfo = (
+      <span className="card-title center-align">Поиск погоды в вашем городе</span>
+    )
 
-    if (this.props.info === 'Ошибка загрузки') {
-      progressInfo = ( <i className="material-icons medium">error_outline</i> )
-    } else if (this.props.info === 'Загрузка...') {
-      progressInfo = ( <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> )
+    if (this.props.error) {
+      progressInfo = ( 
+        <div>
+          <i className="material-icons medium">error_outline</i>
+          <span className="card-title center-align">Не найдено</span>
+        </div>
+      )
+    } else if (this.props.loading) {
+      progressInfo = ( 
+        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> 
+      )
+    } else if (this.props.info.nameCity) {
+      progressInfo = (
+        <div>
+          <span className="card-title center-align city-name">{this.props.info.nameCity}</span>
+          <span className="weather-description">{this.props.info.description}</span>
+          <ul className="full-info">
+            <li>Температура: {this.props.info.temp} °C</li>
+            <li>Давление: {this.props.info.pressure} гПа</li>
+            <li>Влажность: {this.props.info.humidity} %</li>
+            <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
+          </ul>
+        </div>
+      )
     }
-
-    console.log('wi', this.props.info)
-
+    
     return (
       <div className="weather-info">
         <div className="container">
@@ -20,17 +40,6 @@ class WeatherInfo extends React.Component {
               <div className="card teal lighten-1">
                 <div className="card-content white-text">
                   {progressInfo}
-                  
-                  <span className="card-title center-align">{this.props.info.nameCity}</span>
-                  <div>
-                    <span>{this.props.info.description}</span>
-                    <ul>
-                      <li>Температура: {this.props.info.temp} °C</li>
-                      <li>Давление: {this.props.info.pressure} гПа</li>
-                      <li>Влажность: {this.props.info.humidity} %</li>
-                      <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
