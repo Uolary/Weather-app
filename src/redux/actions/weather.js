@@ -1,33 +1,35 @@
 import { WEATHER_HAS_ERRORED, WEATHER_IS_LOADING, GET_WEATHER_DATA_SUCCESS } from './actionTypes'
+import { apiKey } from '../../apiKey';
 
 export function weatherHasErrored(bool) {
   return {
-    action: WEATHER_HAS_ERRORED,
+    type: WEATHER_HAS_ERRORED,
     hasErrored: bool
   }
 }
 
 export function weatherIsLoading(bool) {
   return {
-    action: WEATHER_IS_LOADING,
+    type: WEATHER_IS_LOADING,
     isLoading: bool
   }
 }
 
 export function getWeatherDataSuccess(weatherInfo) {
   return {
-    action: GET_WEATHER_DATA_SUCCESS,
+    type: GET_WEATHER_DATA_SUCCESS,
     weatherInfo
   }
 }
 
-export function getWeatherData(event, city, apiKey) {
+export function getWeatherData(event) {
   return (dispatch) => {
     event.preventDefault()
 
-    const city = event.target.elements.city.value
+    let city = event.target.elements.city.value
 
-    dispatch(weatherHasErrored(true))
+    dispatch(weatherHasErrored(false))
+    dispatch(weatherIsLoading(true))
 
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`)
       .then(response => {
@@ -50,7 +52,7 @@ export function getWeatherData(event, city, apiKey) {
           icon: weatherJSON.weather[0].icon,
           description: weatherJSON.weather[0].description
         }
-        dispatch(weatherInfo)
+        dispatch(getWeatherDataSuccess(weatherInfo))
       })
       .catch(() => dispatch(weatherHasErrored(true)))
   }

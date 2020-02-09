@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getWeatherData } from './redux/actions/weather';
 
 class Search extends React.Component {
   render() {
@@ -6,7 +8,7 @@ class Search extends React.Component {
       <div className="search-city">
         <div className="container">
           <div className="row">
-            <form className="col s12" onSubmit={this.props.getWeatherData}>
+            <form className="col s12" onSubmit={(event) => this.props.getWeatherData(event)}>
               <div className="input-field col s12 m9">
                 <input placeholder="Город" type="text" className="validate" name="city" />
               </div>
@@ -21,4 +23,10 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+const mapDispatchToProps = dispatch => {
+  return {
+    getWeatherData: event => dispatch(getWeatherData(event))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Search);

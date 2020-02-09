@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class WeatherInfo extends React.Component {
   render() {
@@ -9,32 +10,32 @@ class WeatherInfo extends React.Component {
       </div>
     )
 
-    if (this.props.error) {
+    if (this.props.hasErrored) {
       progressInfo = ( 
         <div>
           <i className="material-icons medium">error_outline</i>
           <span className="card-title center-align">Не найдено</span>
         </div>
       )
-    } else if (this.props.loading) {
+    } else if (this.props.hasLoading) {
       progressInfo = ( 
         <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> 
       )
-    } else if (this.props.info.nameCity) {
+    } else if (this.props.weatherInfo.nameCity) {
       progressInfo = (
         <div className="weather-cards">
           <div>
-            <span className="card-title center-align city-name">{this.props.info.nameCity}</span>
-            <span className="weather-description">{this.props.info.description}</span>
+            <span className="card-title center-align city-name">{this.props.weatherInfo.nameCity}</span>
+            <span className="weather-description">{this.props.weatherInfo.description}</span>
             <ul className="full-info">
-              <li>Температура: {this.props.info.temp} °C</li>
-              <li>Давление: {this.props.info.pressure} гПа</li>
-              <li>Влажность: {this.props.info.humidity} %</li>
-              <li>Скорость ветра: {this.props.info.windSpeed} км/ч</li>
+              <li>Температура: {this.props.weatherInfo.temp} °C</li>
+              <li>Давление: {this.props.weatherInfo.pressure} гПа</li>
+              <li>Влажность: {this.props.weatherInfo.humidity} %</li>
+              <li>Скорость ветра: {this.props.weatherInfo.windSpeed} км/ч</li>
             </ul>
           </div>
           <div>
-            <img src={`http://openweathermap.org/img/wn/${this.props.info.icon}@2x.png`} alt="icon" />
+            <img src={`http://openweathermap.org/img/wn/${this.props.weatherInfo.icon}@2x.png`} alt="icon" />
           </div>
         </div>
       )
@@ -58,4 +59,12 @@ class WeatherInfo extends React.Component {
   }
 }
 
-export default WeatherInfo;
+const mapStateToProps = state => {
+  return {
+    weatherInfo: state.weather,
+    hasErrored: state.weatherHasErrored,
+    isLoading: state.weatherIsLoading
+  }
+}
+
+export default connect(mapStateToProps, null)(WeatherInfo);
